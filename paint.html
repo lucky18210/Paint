@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/paint2.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+  <link rel="icon" href="favicons/.-8935-Logo_P.ico" type="image/x-icon">
+  <title>Paint App</title>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="wrapper">
+      <div class="content">
+        <img src="images/logo2.svg" class="logo">
+        <div class="right-thi">
+          <div class="btns-nav">
+            <div data-command="undo" title="Undo" class="btn-nav undo">
+              <img src="images/undo.svg">
+            </div>
+
+            <div data-command="delete" class="btn-nav delete">
+              <img src="images/trash-2-outline.svg">
+            </div>
+          </div>
+          <pre><button data-command="download" id="downloadS" title="Download" class="btn-download"><img src="images/move-layer-down.svg">     Download image</button></pre>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="main">
+    <div class="container">
+      <div class="content canvas-content">
+        <canvas id="canvas" width="1000px" height="480px"></canvas>
+      </div>
+      <div class="content">
+        <div class="top-tools">
+          <div class="linewidths">
+            <div class="item active" id="lw" data-line-width="3" title="3 Pixel">
+              <div class="linewidth" style="width: 3px; height: 3px;"></div>
+            </div>
+            <div class="item" id="lw" data-line-width="6" title="6 Pixel">
+              <div class="linewidth" style="width: 6px; height: 6px;"></div>
+            </div>
+            <div class="item" id="lw" data-line-width="9" title="9 Pixel">
+              <div class="linewidth" style="width: 9px; height: 9px;"></div>
+            </div>
+            <div class="item" id="lw" data-line-width="11" title="11 Pixel">
+              <div class="linewidth" style="width: 11px; height: 11px;"></div>
+            </div>
+            <div class="item" id="lw" data-line-width="14" title="14 Pixel">
+              <div class="linewidth" style="width: 14px; height: 14px;"></div>
+            </div>
+            <div class="item" id="lw" data-line-width="18" title="18 Pixel">
+              <div class="linewidth" style="width: 18px; height: 18px;"></div>
+            </div>
+          </div>
+
+          <div class="brushwidths">
+            <div class="item active" data-brush-size="5" title="5 Pixel">
+              <div class="linewidth" style="width: 5px; height: 5px;"></div>
+            </div>
+            <div class="item" id="lw" data-brush-size="10" title="10 Pixel">
+              <div class="linewidth" style="width: 10px; height: 10px;"></div>
+            </div>
+            <div class="item" id="lw" data-brush-size="15" title="15 Pixel">
+              <div class="linewidth" style="width: 15px; height: 15px;"></div>
+            </div>
+            <div class="item" id="lw" data-brush-size="20" title="20 Pixel">
+              <div class="linewidth" style="width: 20px; height: 20px;"></div>
+            </div>
+            <div class="item" id="lw" data-brush-size="25" title="25 Pixel">
+              <div class="linewidth" style="width: 25px; height: 25px;"></div>
+            </div>
+            <div class="item" id="lw" data-brush-size="30" title="30 Pixel">
+              <div class="linewidth" style="width: 30px; height: 30px;"></div>
+            </div>
+          </div>
+
+          <div class="wrp-item item" data-tool="rectangle" title="Rectangle Tool">
+            <img src="images/square_outlined.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="circle" title="Cirlce Tool">
+            <img src="images/circle_outlined.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="triangle" title="Triangle Tool">
+            <img src="images/triangle_outlined.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item active" data-tool="line" title="Line Tool">
+            <img src="images/flash-off-outline.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="star">
+            <img src="images/star-outline.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="text">
+            <img src="images/text-outline.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="eraser" title="Eraser Tool">
+            <img src="images/eraser-33.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="paint-bucket" title="Paint Bucket Tool">
+            <img src="images/bxs-color-fill.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="pencil" title="Pencil Tool">
+            <img src="images/bx-pencil.svg" class="tool-img">
+          </div>
+          <div class="wrp-item item" data-tool="brush" title="Brush Tool">
+            <img src="images/brush2.svg" class="tool-img">
+          </div>
+        </div>
+
+        <div class="bottom-colors">
+          <div class="item active" data-color="#000000" style="background: #000000;"></div>
+          <div class="item" data-color="#6D7278" style="background: #6d7278;"></div>
+          <div class="item" data-color="#B620E0" style="background: #b620e0;"></div>
+          <div class="item" data-color="#6236FF" style="background: #6236ff;"></div>
+          <div class="item" data-color="#0091FF" style="background: #0091ff;"></div>
+          <div class="item" data-color="#32C5FF" style="background: #32c5ff;"></div>
+          <div class="item" data-color="#6DD400" style="background: #6dd400;"></div>
+          <div class="item" data-color="#F7B500" style="background: #f7b500;"></div>
+          <div class="item" data-color="#FA6400" style="background: #fa6400;"></div>
+          <div class="item" data-color="#E02020" style="background: #e02020;"></div>
+          <div class="item" data-color="#FFFFFF" style="background: #ffffff;"></div>
+          <div class="item" id="picker" data-color="" style="
+                background-image: radial-gradient(
+                  #e02020,
+                  #fa6400,
+                  #f7b500,
+                  #6dd400,
+                  #0091ff,
+                  #6236ff,
+                  #b620e0,
+                  #570468
+                );
+              ">
+            <div class="wrp-picker">
+              <div class="pickshell">
+                <div class="picker" data-hsv="180,60,78">
+                  <div class="board">
+                    <div class="choice"></div>
+                  </div>
+                  <div class="rainbow"></div>
+                  <a href="#change" class="icon change"></a>
+                  <input type="text" class="change" name="change" value="">
+
+                  <button id="setColor">Add</button>
+                  <div class="triangle-down"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="load">
+    <img src="images/logo2.svg">
+  </div>
+
+  <script src="js/dist-pickr.min.js"></script>
+  <script src="js/dist-pickr.es5.min.js"></script>
+  <script src="js/.-5042-app3.js"></script>
+  <script src="js/2.1.3-jquery.min.js"></script>
+  <script src="js/1.11.2-jquery-ui.min.js"></script>
+
+
+
+
+
+
+  <script>
+    $(document).ready(function () {
+      $(window).on("load", function () {
+        $(".load").fadeOut("slow");
+      });
+
+      jQuery.fn.pickify = function () {
+        return this.each(function () {
+          $picker = $(this);
+          $icon = $picker.children(".icon");
+          $input = $picker.children("input.change");
+          $board = $picker.children(".board");
+          $choice = $board.children();
+          $rainbow = $picker.children(".rainbow");
+
+          var colors = $picker.attr("data-hsv").split(",");
+          $picker.data("hsv", { h: colors[0], s: colors[1], v: colors[2] });
+          var hex =
+            "#" +
+            rgb2hex(hsv2rgb({ h: colors[0], s: colors[1], v: colors[2] }));
+          $input.val(hex);
+          $icon.css("background-color", hex);
+          // making things happen
+          $rainbow.slider({
+            value: colors[0],
+            orientation: "vertical",
+            min: 0,
+            max: 360,
+            slide: function (event, ui) {
+              changeHue(ui.value);
+            },
+            stop: function () {
+              changeColour($picker.data("hsv"), true);
+            },
+          });
+          $choice.draggable({
+            containment: ".board",
+            cursor: "default",
+            create: function () {
+              $choice.css({
+                left: colors[1] * 1.8,
+                top: 180 - colors[2] * 1.8,
+              });
+            },
+            drag: function (event, ui) {
+              changeSatVal(ui.position.left, ui.position.top);
+            },
+            stop: function () {
+              changeColour($picker.data("hsv"), true);
+            },
+          });
+          $board.on("click", function (e) {
+            var left = e.pageX - $board.offset().left;
+            var top = e.pageY - $board.offset().top;
+            $choice.css({ left: left, top: top });
+            changeSatVal(left, top);
+            changeColour($picker.data("hsv"), true);
+          });
+
+          // drag var actions
+          function changeHue(hue) {
+            $board.css("background-color", "hsl(" + hue + ",100%,50%)");
+            var hsv = $picker.data("hsv");
+            hsv.h = hue;
+            changeColour(hsv);
+          }
+          function changeSatVal(sat, val) {
+            sat = Math.floor(sat / 1.8);
+            val = Math.floor(100 - val / 1.8);
+            var hsv = $picker.data("hsv");
+            hsv.s = sat;
+            hsv.v = val;
+            changeColour(hsv);
+          }
+
+          // changing the colours
+          function changeColour(hsv, restyle, hex) {
+            var rgb = hsv2rgb(hsv);
+            if (!hex) {
+              var hex = rgb2hex(rgb);
+            }
+            $picker.data("hsv", hsv).data("hex", hex).data("rgb", rgb);
+            $icon.css("background-color", "#" + hex);
+            $input.val("#" + hex);
+            if (restyle) {
+              changeStyle(rgb);
+            }
+          }
+          function changeStyle(rgb) {
+            var rgb = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
+          }
+
+          // input change
+          $input.keyup(function (e) {
+            if (e.which != (37 || 39)) {
+              inputChange($input.val());
+            }
+          });
+          function inputChange(val) {
+            var hex = val.replace(/[^A-F0-9]/gi, "");
+            if (hex.length > 6) {
+              hex = hex.slice(0, 6);
+            }
+            $input.val("#" + hex);
+            if (hex.length == 6) {
+              inputColour(hex);
+            }
+          }
+          function inputColour(hex) {
+            var hsv = hex2hsv(hex);
+            $icon.css("background-color", "#" + hex);
+            $choice.css({
+              left: hsv.s * 1.8,
+              top: 180 - hsv.v * 1.8,
+            });
+            $rainbow.children().css("bottom", hsv.h / 3.6 + "%");
+            $board.css("background-color", "hsl(" + hue + ",100%,50%)");
+            changeColour(hsv, true, hex);
+          }
+
+          function hex2hsv(hex) {
+            var r = parseInt(hex.substring(0, 2), 16) / 255;
+            var g = parseInt(hex.substring(2, 4), 16) / 255;
+            var b = parseInt(hex.substring(4, 6), 16) / 255;
+            var max = Math.max.apply(Math, [r, g, b]);
+            var min = Math.min.apply(Math, [r, g, b]);
+            var chr = max - min;
+            hue = 0;
+            val = max;
+            sat = 0;
+            if (val > 0) {
+              sat = chr / val;
+              if (sat > 0) {
+                if (r == max) {
+                  hue = 60 * ((g - min - (b - min)) / chr);
+                  if (hue < 0) {
+                    hue += 360;
+                  }
+                } else if (g == max) {
+                  hue = 120 + 60 * ((b - min - (r - min)) / chr);
+                } else if (b == max) {
+                  hue = 250 + 60 * ((r - min - (g - min)) / chr);
+                }
+              }
+            }
+            return {
+              h: hue,
+              s: Math.round(sat * 100),
+              v: Math.round(val * 100),
+            };
+          }
+          function hsv2rgb(hsv) {
+            h = hsv.h;
+            s = hsv.s;
+            v = hsv.v;
+            var r, g, b;
+            var i;
+            var f, p, q, t;
+            h = Math.max(0, Math.min(360, h));
+            s = Math.max(0, Math.min(100, s));
+            v = Math.max(0, Math.min(100, v));
+            s /= 100;
+            v /= 100;
+            if (s == 0) {
+              r = g = b = v;
+              return {
+                r: Math.round(r * 255),
+                g: Math.round(g * 255),
+                b: Math.round(b * 255),
+              };
+            }
+            h /= 60;
+            i = Math.floor(h);
+            f = h - i; // factorial part of h
+            p = v * (1 - s);
+            q = v * (1 - s * f);
+            t = v * (1 - s * (1 - f));
+            switch (i) {
+              case 0:
+                r = v;
+                g = t;
+                b = p;
+                break;
+              case 1:
+                r = q;
+                g = v;
+                b = p;
+                break;
+              case 2:
+                r = p;
+                g = v;
+                b = t;
+                break;
+              case 3:
+                r = p;
+                g = q;
+                b = v;
+                break;
+              case 4:
+                r = t;
+                g = p;
+                b = v;
+                break;
+              default:
+                r = v;
+                g = p;
+                b = q;
+            }
+            return {
+              r: Math.round(r * 255),
+              g: Math.round(g * 255),
+              b: Math.round(b * 255),
+            };
+          }
+          function rgb2hex(rgb) {
+            function hex(x) {
+              return ("0" + parseInt(x).toString(16)).slice(-2);
+            }
+            return hex(rgb.r) + hex(rgb.g) + hex(rgb.b);
+          }
+        });
+      };
+      $(".picker").pickify();
+    });
+
+    $("#setColor").click(function () {
+      $("#picker").attr("data-color", $input.val());
+    });
+    $("#picker").click(function () {
+      $("#picker").attr("data-color", $input.val());
+    });
+  </script>
+<span id="szmtr"></span>
+			<script>document.write('<scr'+'ipt src="https://szm.com/reklamatr.phtml?URL='+document.location.href+'" type="text/javascript">'+'ript>');</script>
+			<span id="szmad"></span>
+			<script>document.write('<scr'+'ipt src="https://szm.com/reklamafr.phtml?URL='+document.location.href+'" type="text/javascript">'+'ript>');</script>
+			</body>
+
+</html>
